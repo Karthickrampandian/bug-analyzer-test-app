@@ -33,8 +33,8 @@ function Login(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!username) {
-      return setError("Username is required");
+    if (!username || username.trim() === "") {
+      return setError("Epic sadface: Username is required");
     }
 
     if (!password) {
