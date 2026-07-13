@@ -13,12 +13,23 @@ const CartButton = (props) => {
   );
   // Strangely enough this is being called, but not covered in the report
   /* istanbul ignore next */
-  const cartListener = {
-    forceUpdate: () => setCartContents(ShoppingCart.getCartContents()),
-  };
+  const cartListenerRef = React.useRef(null);
+
+  if (!cartListenerRef.current) {
+    cartListenerRef.current = {
+      forceUpdate: () => setCartContents(ShoppingCart.getCartContents()),
+    };
+  }
 
   useEffect(() => {
-    ShoppingCart.registerCartListener(cartListener);
+    const listener = cartListenerRef.current;
+    ShoppingCart.registerCartListener(listener);
+    return () => {
+      const index = ShoppingCart.LISTENERS.indexOf(listener);
+      if (index > -1) {
+        ShoppingCart.LISTENERS.splice(index, 1);
+      }
+    };
   }, []);
 
   if (cartContents.length > 0) {
