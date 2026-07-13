@@ -33,7 +33,7 @@ function Login(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!username) {
+    if (!username || !username.trim()) {
       return setError("Username is required");
     }
 
