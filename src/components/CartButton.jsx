@@ -18,7 +18,16 @@ const CartButton = (props) => {
   };
 
   useEffect(() => {
+    const cartListener = {
+      forceUpdate: () => setCartContents(ShoppingCart.getCartContents()),
+    };
     ShoppingCart.registerCartListener(cartListener);
+    return () => {
+      const index = ShoppingCart.LISTENERS.indexOf(cartListener);
+      if (index > -1) {
+        ShoppingCart.LISTENERS.splice(index, 1);
+      }
+    };
   }, []);
 
   if (cartContents.length > 0) {
