@@ -39,7 +39,7 @@ const CheckOutStepOne = ({ history }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    if (!firstName) {
+    if (firstName.length === 0 || firstName.replace(/\s/g, '').length === 0) {
       return setError("First Name is required");
     }
 
