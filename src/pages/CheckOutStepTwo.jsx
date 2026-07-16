@@ -28,11 +28,11 @@ const CheckOutStepTwo = ({ history }) => {
   const contents = ShoppingCart.getCartContents();
   let orderTotal = 0;
 
-  for (const curItem in contents) {
-    orderTotal = orderTotal + InventoryData[contents[curItem]].price;
+  for (const curItem of contents) {
+    orderTotal = orderTotal + InventoryData[curItem].price;
     if (isProblemUser()) {
       // double up for the problem user
-      orderTotal = orderTotal + InventoryData[contents[curItem]].price;
+      orderTotal = orderTotal + InventoryData[curItem].price;
     }
   }
 
